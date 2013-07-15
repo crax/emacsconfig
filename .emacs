@@ -6,6 +6,21 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+;; set language
+;;(set-language-environment 'utf-8)
+;;(prefer-coding-system 'utf-8)
+
+(create-fontset-from-fontset-spec
+ "-apple-bitstream vera sans mono-medium-r-normal--12-*-*-*-*-*-fontset-mymonaco,
+ascii:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
+chinese-gb2312:-apple-STHeiti-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
+latin-iso8859-1:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
+mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+
+(setq default-frame-alist (append '((font . "fontset-mymonaco")) default-frame-alist))
+(set-default-font "fontset-mymonaco")
+
+
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -34,6 +49,11 @@
 (global-set-key (kbd "C-c C-g") 'goto-line)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (define-key global-map (kbd "C-c C-c") 'comment-region)
+(define-key global-map (kbd "C-2") 'set-mark-command)
+
+;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
 
 ;; eshell
 (defun m-eshell-hook ()
