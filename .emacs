@@ -6,6 +6,8 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+(server-start)
+
 ;; set language
 ;;(set-language-environment 'utf-8)
 ;;(prefer-coding-system 'utf-8)
@@ -55,6 +57,10 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (require 'auto-complete-config)
 (ac-config-default)
 
+;; org-mode
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(add-to-list 'auto-mode-alist '("\TODO$" . org-mode))
+
 ;; eshell
 (defun m-eshell-hook ()
   ; define control p, control n and the up/down arrow
@@ -66,6 +72,9 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
   )
 
 (add-hook 'eshell-mode-hook 'm-eshell-hook)
+
+(require 'pearl-mode)
+(add-to-list 'auto-mode-alist '("\\.pearl\\'" . pearl-mode))
 
 ;; Ruby
 (require 'ruby-mode)
