@@ -6,6 +6,9 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+;; Set default load path
+(add-to-list 'load-path "~/.emacs.d")
+
 (server-start)
 
 ;; set language
@@ -21,7 +24,6 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 (setq default-frame-alist (append '((font . "fontset-mymonaco")) default-frame-alist))
 (set-default-font "fontset-mymonaco")
-
 
 
 (setq make-backup-files nil)
@@ -75,6 +77,10 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 (require 'pearl-mode)
 (add-to-list 'auto-mode-alist '("\\.pearl\\'" . pearl-mode))
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
 
 ;; Ruby
 (require 'ruby-mode)
