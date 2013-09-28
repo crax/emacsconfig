@@ -6,6 +6,8 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+(server-start)
+
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -35,6 +37,10 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (define-key global-map (kbd "C-c C-c") 'comment-region)
 
+;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+
 ;; eshell
 (defun m-eshell-hook ()
   ; define control p, control n and the up/down arrow
@@ -60,6 +66,10 @@
 
 					; support newline-and-indent
 (add-hook 'ruby-mode-hook (lambda () (local-set-key "\r" 'newline-and-indent)))
+
+;; all customized lisps
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(require 'pac-mode)
 
 
 ;; (defun ruby-mode-hook ()
