@@ -1,3 +1,11 @@
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell 
+      (replace-regexp-in-string "[[:space:]\n]*$" "" 
+        (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+(when (equal system-type 'darwin) (set-exec-path-from-shell-PATH))
+
 (require 'package)
 (add-to-list 'package-archives 
 	     '("marmalade" .
@@ -6,7 +14,26 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+;; Set default load path
+(add-to-list 'load-path "~/.emacs.d")
+
 (server-start)
+
+;; set language
+;;(set-language-environment 'utf-8)
+;;(prefer-coding-system 'utf-8)
+(if (eq system-type 'darwin)
+    (create-fontset-from-fontset-spec
+     "-apple-bitstream vera sans mono-medium-r-normal--12-*-*-*-*-*-fontset-mymonaco,
+ascii:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
+chinese-gb2312:-apple-STHeiti-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
+latin-iso8859-1:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
+mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+
+  (setq default-frame-alist (append '((font . "fontset-mymonaco")) default-frame-alist))
+  (set-default-font "fontset-mymonaco")
+
+  )
 
 
 (setq make-backup-files nil)
@@ -31,11 +58,21 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-tty-dark)
+;(color-theme-github)
 
 ;; hot key
 (global-set-key (kbd "C-c C-g") 'goto-line)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (define-key global-map (kbd "C-c C-c") 'comment-region)
+(define-key global-map (kbd "C-2") 'set-mark-command)
+
+;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+
+;; org-mode
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(add-to-list 'auto-mode-alist '("\TODO$" . org-mode))
 
 ;; auto-complete
 (require 'auto-complete-config)
@@ -53,6 +90,13 @@
 
 (add-hook 'eshell-mode-hook 'm-eshell-hook)
 
+(require 'pearl-mode)
+(add-to-list 'auto-mode-alist '("\\.pearl\\'" . pearl-mode))
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+
 ;; Ruby
 (require 'ruby-mode)
 (require 'flymake-ruby)
@@ -60,6 +104,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.fevoi$" . ruby-mode))
 
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode t)))
