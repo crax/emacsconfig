@@ -55,8 +55,9 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;; color-theme
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-tty-dark)
+;(color-theme-tty-dark)
 ;(color-theme-github)
+(load-theme 'solarized-dark t)
 
 ;; hot key
 (global-set-key (kbd "C-c C-g") 'goto-line)
