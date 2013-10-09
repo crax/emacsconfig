@@ -22,16 +22,18 @@
 ;; set language
 ;;(set-language-environment 'utf-8)
 ;;(prefer-coding-system 'utf-8)
-
-(create-fontset-from-fontset-spec
- "-apple-bitstream vera sans mono-medium-r-normal--12-*-*-*-*-*-fontset-mymonaco,
+(if (eq system-type 'darwin)
+    (create-fontset-from-fontset-spec
+     "-apple-bitstream vera sans mono-medium-r-normal--12-*-*-*-*-*-fontset-mymonaco,
 ascii:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
 chinese-gb2312:-apple-STHeiti-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
 latin-iso8859-1:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
 mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 
-(setq default-frame-alist (append '((font . "fontset-mymonaco")) default-frame-alist))
-(set-default-font "fontset-mymonaco")
+  (setq default-frame-alist (append '((font . "fontset-mymonaco")) default-frame-alist))
+  (set-default-font "fontset-mymonaco")
+
+  )
 
 
 (setq make-backup-files nil)
@@ -73,6 +75,10 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\TODO$" . org-mode))
 
+;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+
 ;; eshell
 (defun m-eshell-hook ()
   ; define control p, control n and the up/down arrow
@@ -106,6 +112,10 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 					; support newline-and-indent
 (add-hook 'ruby-mode-hook (lambda () (local-set-key "\r" 'newline-and-indent)))
+
+;; all customized lisps
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(require 'pac-mode)
 
 
 ;; (defun ruby-mode-hook ()
