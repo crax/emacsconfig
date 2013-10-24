@@ -66,6 +66,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (define-key global-map (kbd "C-c C-c") 'comment-region)
 (define-key global-map (kbd "C-2") 'set-mark-command)
+(define-key global-map (kbd "C-x C-j") 'dired-jump)
 
 ;; auto-complete
 (require 'auto-complete-config)
@@ -96,6 +97,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.sls$" . yaml-mode))
 
 
 ;; Ruby
@@ -106,6 +108,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (add-to-list 'auto-mode-alist '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.fevoi$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rules$" . ruby-mode))
 
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode t)))
