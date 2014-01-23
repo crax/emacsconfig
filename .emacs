@@ -55,11 +55,13 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (ido-mode t)
 
 ;; color-theme
-(require 'color-theme)
-(color-theme-initialize)
+;(require 'color-theme)
+(require 'color-theme-sanityinc-tomorrow)
+;(color-theme-initialize)
 ;(color-theme-tty-dark)
 ;(color-theme-github)
-(load-theme 'solarized-dark t)
+;(load-theme 'solarized-dark t)
+;(load-theme 'sunny-day)
 
 ;; hot key
 (global-set-key (kbd "C-c C-g") 'goto-line)
@@ -109,6 +111,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.fevoi$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rules$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.specs$" . ruby-mode))
 
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode t)))
@@ -150,3 +153,47 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;;   (add-hook 'css-mode-hook '(lambda ()
 ;; 			      (setq css-indent-level 2)
 ;; 			      (setq css-indent-offset 2))))
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
+;;  '(ansi-color-names-vector (vector "#4d4d4c" "#c82829" "#718c00" "#eab700" "#4271ae" "#8959a8" "#3e999f" "#ffffff"))
+;;  '(custom-enabled-themes (quote (sanityinc-tomorrow-blue)))
+;;  '(custom-safe-themes (quote ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "3eaa11afcc41357f889ba76f9f985c07a557536dafe0554c1f226b7a71848118" default)))
+;;  '(fci-rule-color "#efefef")
+;;  '(vc-annotate-background nil)
+;;  '(vc-annotate-color-map (quote ((20 . "#c82829") (40 . "#f5871f") (60 . "#eab700") (80 . "#718c00") (100 . "#3e999f") (120 . "#4271ae") (140 . "#8959a8") (160 . "#c82829") (180 . "#f5871f") (200 . "#eab700") (220 . "#718c00") (240 . "#3e999f") (260 . "#4271ae") (280 . "#8959a8") (300 . "#c82829") (320 . "#f5871f") (340 . "#eab700") (360 . "#718c00"))))
+;;  '(vc-annotate-very-old-color nil))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
+;;  '(ansi-color-names-vector (vector "#4d4d4c" "#c82829" "#718c00" "#eab700" "#4271ae" "#8959a8" "#3e999f" "#ffffff"))
+;;  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+;;  '(custom-safe-themes (quote ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
+;;  '(fci-rule-color "#efefef")
+;;  '(vc-annotate-background nil)
+;;  '(vc-annotate-color-map (quote ((20 . "#c82829") (40 . "#f5871f") (60 . "#eab700") (80 . "#718c00") (100 . "#3e999f") (120 . "#4271ae") (140 . "#8959a8") (160 . "#c82829") (180 . "#f5871f") (200 . "#eab700") (220 . "#718c00") (240 . "#3e999f") (260 . "#4271ae") (280 . "#8959a8") (300 . "#c82829") (320 . "#f5871f") (340 . "#eab700") (360 . "#718c00"))))
+;;  '(vc-annotate-very-old-color nil))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
+(add-hook 'haml-mode-hook
+          (lambda ()
+            (set (make-local-variable 'electric-indent-functions)
+                 (list (lambda (arg) 'no-indent)))))
