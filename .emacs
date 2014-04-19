@@ -17,7 +17,32 @@
 ;; Set default load path
 (add-to-list 'load-path "~/.emacs.d")
 
-(server-start)
+(require 'cl)
+
+(defvar prelude-packages
+  '(coffee-mode haml-mode inf-ruby auto-complete color-theme-sanityinc-tomorrow
+                magit markdown-mode python flymake-ruby ruby-end
+                sass-mode solarized-theme
+                volatile-highlights yaml-mode yari zenburn-theme)
+  "A list of packages to ensure are installed at launch.")
+
+(defun prelude-packages-installed-p ()
+  (loop for p in prelude-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (prelude-packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Emacs Prelude is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p prelude-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+
+(provide 'prelude-packages)
+;;; prelude-packages.el ends here
 
 ;; set language
 ;;(set-language-environment 'utf-8)
@@ -56,7 +81,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 ;; color-theme
 ;(require 'color-theme)
-(require 'color-theme-sanityinc-tomorrow)
+;(require 'color-theme-sanityinc-tomorrow)
 ;(color-theme-initialize)
 ;(color-theme-tty-dark)
 ;(color-theme-github)
@@ -94,8 +119,8 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 (add-hook 'eshell-mode-hook 'm-eshell-hook)
 
-(require 'pearl-mode)
-(add-to-list 'auto-mode-alist '("\\.pearl\\'" . pearl-mode))
+;;(require 'pearl-mode)
+;;(add-to-list 'auto-mode-alist '("\\.pearl\\'" . pearl-mode))
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
@@ -113,8 +138,8 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (add-to-list 'auto-mode-alist '("\\.rules$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.specs$" . ruby-mode))
 
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode t)))
+;; (require 'ruby-electric)
+;; (add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode t)))
 
 					; support newline-and-indent
 (add-hook 'ruby-mode-hook (lambda () (local-set-key "\r" 'newline-and-indent)))
@@ -197,3 +222,18 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
           (lambda ()
             (set (make-local-variable 'electric-indent-functions)
                  (list (lambda (arg) 'no-indent)))))
+
+(server-start)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-day)))
+ '(custom-safe-themes (quote ("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
