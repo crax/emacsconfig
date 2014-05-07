@@ -23,6 +23,7 @@
   '(coffee-mode haml-mode inf-ruby auto-complete color-theme-sanityinc-tomorrow
                 magit markdown-mode python flymake-ruby ruby-end
                 sass-mode solarized-theme
+                flymake-haml flymake-coffee
                 volatile-highlights yaml-mode yari zenburn-theme)
   "A list of packages to ensure are installed at launch.")
 
