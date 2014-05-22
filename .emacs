@@ -147,7 +147,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 ;; all customized lisps
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(require 'pac-mode)
+;(require 'pac-mode)
 
 
 ;; (defun ruby-mode-hook ()
